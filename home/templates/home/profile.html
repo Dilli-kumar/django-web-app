@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Profile - Django Dashboard{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">User Profile</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <div class="rounded-circle bg-light d-inline-block p-4 mb-3 border">
+                        <span class="fs-1">👤</span>
+                    </div>
+                    <h3>{{ user.username }}</h3>
+                    <p class="text-muted">{{ user.email|default:"No email provided" }}</p>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label class="fw-bold">Joined On:</label>
+                    <p>{{ user.date_joined|date:"F j, Y" }}</p>
+                </div>
+                <div class="mb-3">
+                    <label class="fw-bold">Last Login:</label>
+                    <p>{{ user.last_login|date:"F j, Y H:i" }}</p>
+                </div>
+                <div class="d-grid gap-2">
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger w-100">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

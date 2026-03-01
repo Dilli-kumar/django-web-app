@@ -1,0 +1,58 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Product List - Django Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h2>Product Catalog</h2>
+    <div class="d-flex gap-2">
+        <form action="{% url 'product_list' %}" method="get" class="d-flex gap-1 shadow-sm rounded">
+            <input type="text" name="q" class="form-control form-control-sm" placeholder="Search products..." value="{{ query|default:'' }}">
+            <button type="submit" class="btn btn-primary btn-sm px-3">Search</button>
+        </form>
+        <span class="badge bg-secondary d-flex align-items-center px-3">Total: {{ products.count }}</span>
+    </div>
+</div>
+
+{% if query %}
+<div class="alert alert-info py-2 shadow-sm">
+    Showing results for: <strong>"{{ query }}"</strong>
+    <a href="{% url 'product_list' %}" class="btn-close float-end" aria-label="Close"></a>
+</div>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for product in products %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            {% if product.image_url %}
+            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <span class="text-muted">No Image</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title text-primary mb-0">{{ product.name }}</h5>
+                    <span class="badge bg-info text-dark small">{{ product.category }}</span>
+                </div>
+                <p class="card-text text-muted small" style="height: 3rem; overflow: hidden;">{{ product.description }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="fs-5 fw-bold text-success">₹{{ product.price }}</span>
+                    <span class="text-secondary small">Stock: {{ product.stock }}</span>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-primary btn-sm w-100 shadow-sm">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <p class="text-muted fs-5">No products found. Use the Admin panel to add some!</p>
+        <a href="/admin/home/product/add/" class="btn btn-primary shadow-sm" target="_blank">Add Product</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

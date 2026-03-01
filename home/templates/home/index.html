@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+
+{% block title %}My E-Commerce Project{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-5">
+                <h1 class="display-6 fw-bold text-dark">Welcome to My E-Commerce Project! 🛒</h1>
+                <p class="lead mt-3">Hello! My name is Dilli, and this is my final Django web application project. I have built this site to demonstrate my understanding of backend development, database management, and responsive frontend design.</p>
+                <hr>
+                <div class="mt-4">
+                    <h5>About This Project</h5>
+                    <p>This application is a functional e-commerce platform where you can browse products, search for specific items, and manage user profiles. I used <strong>Django 6.0</strong> for the backend and <strong>Bootstrap</strong> for the user interface.</p>
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="{% url 'product_list' %}" class="btn btn-primary px-4">Browse Our Products</a>
+                        <a href="#details" class="btn btn-outline-secondary px-4">Project Technical Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-light">
+            <div class="card-body">
+                <h5 class="card-title">Quick Navigation</h5>
+                <ul class="list-group list-group-flush bg-transparent">
+                    <li class="list-group-item bg-transparent d-flex align-items-center">
+                        <span class="me-2">📦</span>
+                        <a href="{% url 'product_list' %}" class="text-decoration-none text-dark">View Catalog</a>
+                    </li>
+                    <li class="list-group-item bg-transparent d-flex align-items-center">
+                        <span class="me-2">🔑</span>
+                        <a href="/admin/" class="text-decoration-none text-dark" target="_blank">Admin Dashboard</a>
+                    </li>
+                    <li class="list-group-item bg-transparent d-flex align-items-center">
+                        <span class="me-2">👤</span>
+                        <a href="{% url 'profile' %}" class="text-decoration-none text-dark">User Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" id="details">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 border-start border-4 border-primary">
+            <div class="card-body">
+                <h4 class="mb-3">Technical Implementation (Student Notes)</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>1. Database Models</h6>
+                        <p class="small text-muted">I created a Product model with fields for name, description, price, and category. I also added an image_url field to show product pictures dynamically.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>2. URL Routing</h6>
+                        <p class="small text-muted">The project uses nested URL configurations. The main project urls.py includes the home app's urls.py for better organization.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>3. Templates</h6>
+                        <p class="small text-muted">I used template inheritance (base.html) to keep the code DRY (Don't Repeat Yourself) and ensure a consistent layout across all pages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
